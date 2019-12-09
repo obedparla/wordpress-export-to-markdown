@@ -221,7 +221,7 @@ function getCategories(post) {
 			categories.push(c.$.nicename);
 		}
 	})
-	return categories.join(",");
+	return `\n - ${categories.join(`\n - `)}`;
 }
 
 function getTags(post) {
@@ -231,6 +231,7 @@ function getTags(post) {
 			tags.push(c.$.nicename);
 		}
 	})
+
 	return tags;
 }
 
@@ -268,7 +269,7 @@ function getPostContent(post, turndownService) {
 	if (argv.addcontentimages) {
 		// writeImageFile() will save all content images to a relative /images
 		// folder so update references in post content to match
-		content = content.replace(/(<img[^>]*src=").*?([^\/"]+\.(?:gif|jpg|jpeg|png))("[^>]*>)/gi, '$1images/$2$3');
+		content = content.replace(/(<img[^>]*src=").*?([^\/"]+\.(?:gif|jpg|jpeg|png))("[^>]*>)/gi, '$1../images/$2$3');
 	}
 
 	// this is a hack to make <iframe> nodes non-empty by inserting a "." which
@@ -310,7 +311,7 @@ function mergeImagesIntoPosts(images, posts) {
 
 			if (image.id === post.meta.coverImageId) {
 				// save cover image filename to frontmatter
-				post.frontmatter.coverImage = "images/" + getFilenameFromUrl(image.url);
+				post.frontmatter.cover = "../images/" + getFilenameFromUrl(image.url);
 			}
 		}
 	});
@@ -337,7 +338,12 @@ function writeFiles(posts) {
 function writeMarkdownFile(post, postDir) {
 	const frontmatter = Object.entries(post.frontmatter)
 		.reduce((accumulator, pair) => {
-			return accumulator + pair[0] + ': "' + pair[1] + '"\n'
+			let data = `${accumulator}${pair[0]} : "${pair[1]}"\n`;
+			if(pair[0] === "categories"){
+				data = `${accumulator}${pair[0]} : ${pair[1]}\n`;
+			}
+
+			return data;
 		}, '');
 	const data = '---\n' + frontmatter + '---\n\n' + post.content + '\n';
 

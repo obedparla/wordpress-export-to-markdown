@@ -3,7 +3,7 @@
 	"version": "1.0.2",
 	"description": "Converts a WordPress export XML file into Markdown files.",
 	"main": "index.js",
-	"repository": "https://github.com/lonekorean/wordpress-export-to-markdown.git",
+	"repository": "https://github.com/obedparla/wordpress-export-to-markdown",
 	"keywords": [
 		"wordpress",
 		"markdown",
@@ -12,7 +12,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"author": "Will Boyd <will@codersblock.com> (https://codersblock.com)",
+	"author": "Obed Parlapiano (https://obedparla.com)",
 	"license": "MIT",
 	"engines": {
 		"node": ">= 10.12.0"
@@ -21,6 +21,7 @@
 		"luxon": "^1.4.3",
 		"minimist": "^1.2.0",
 		"request": "^2.88.0",
+		"smartquotes": "^2.3.1",
 		"turndown": "^5.0.1",
 		"xml2js": "^0.4.19"
 	}

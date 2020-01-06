@@ -5,6 +5,7 @@ const path = require('path');
 const request = require('request');
 const turndown = require('turndown');
 const xml2js = require('xml2js');
+const smartquotes = require('smartquotes');
 
 // global so various functions can access arguments
 let argv;
@@ -251,7 +252,7 @@ function getPostSlug(post) {
 }
 
 function getPostTitle(post) {
-	return post.title[0].trim();
+	return smartquotes(post.title[0].trim());
 }
 
 function getPostDate(post) {
